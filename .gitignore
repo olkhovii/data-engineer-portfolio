@@ -11,3 +11,4 @@ logs/
 # IDE
 .vscode/
 .idea/
+logs/
