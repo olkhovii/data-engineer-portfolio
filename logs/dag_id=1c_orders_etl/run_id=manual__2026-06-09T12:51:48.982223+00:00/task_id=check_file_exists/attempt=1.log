@@ -1,0 +1,23 @@
+[2026-06-09T12:51:50.343+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-09T12:51:50.351+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: 1c_orders_etl.check_file_exists manual__2026-06-09T12:51:48.982223+00:00 [queued]>
+[2026-06-09T12:51:50.355+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: 1c_orders_etl.check_file_exists manual__2026-06-09T12:51:48.982223+00:00 [queued]>
+[2026-06-09T12:51:50.356+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-06-09T12:51:50.362+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): check_file_exists> on 2026-06-09 12:51:48.982223+00:00
+[2026-06-09T12:51:50.366+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=55) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-06-09T12:51:50.368+0000] {standard_task_runner.py:72} INFO - Started process 56 to run task
+[2026-06-09T12:51:50.367+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', '1c_orders_etl', 'check_file_exists', 'manual__2026-06-09T12:51:48.982223+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/01-1c-excel-pipeline/dags/orders_etl.py', '--cfg-path', '/tmp/tmpsgj4bhne']
+[2026-06-09T12:51:50.369+0000] {standard_task_runner.py:105} INFO - Job 8: Subtask check_file_exists
+[2026-06-09T12:51:50.379+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:209: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2026-06-09T12:51:50.405+0000] {task_command.py:467} INFO - Running <TaskInstance: 1c_orders_etl.check_file_exists manual__2026-06-09T12:51:48.982223+00:00 [running]> on host 5e349590b69c
+[2026-06-09T12:51:50.464+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='1c_orders_etl' AIRFLOW_CTX_TASK_ID='check_file_exists' AIRFLOW_CTX_EXECUTION_DATE='2026-06-09T12:51:48.982223+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-09T12:51:48.982223+00:00'
+[2026-06-09T12:51:50.465+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-06-09T12:51:50.497+0000] {python.py:240} INFO - Done. Returned value was: /opt/***/dags/cases/01-1c-excel-pipeline/data/samples/Реализации_2026-06-08.xlsx
+[2026-06-09T12:51:50.507+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-06-09T12:51:50.508+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=1c_orders_etl, task_id=check_file_exists, run_id=manual__2026-06-09T12:51:48.982223+00:00, execution_date=20260609T125148, start_date=20260609T125150, end_date=20260609T125150
+[2026-06-09T12:51:50.560+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-09T12:51:50.576+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-09T12:51:50.577+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
