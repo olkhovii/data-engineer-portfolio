@@ -12,3 +12,4 @@ logs/
 .vscode/
 .idea/
 logs/
+cases/02-yandex-direct-api/config/config.json

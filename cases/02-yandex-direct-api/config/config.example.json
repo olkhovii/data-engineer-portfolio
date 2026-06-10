@@ -1,0 +1,27 @@
+{
+  "postgres": {
+    "host": "postgres",
+    "port": 5432,
+    "dbname": "airflow_db",
+    "user": "airflow",
+    "password": "${POSTGRES_PASSWORD}"
+  },
+  "yd": {
+    "accounts": [
+      {
+        "client_id": "${YANDEX_CLIENT_ID_1}",
+        "client_secret": "${YANDEX_CLIENT_SECRET_1}",
+        "access_token": "${YANDEX_ACCESS_TOKEN_1}",
+        "login": "marketing_user_1",
+        "goal_id": "123456789"
+      },
+      {
+        "client_id": "${YANDEX_CLIENT_ID_2}",
+        "client_secret": "${YANDEX_CLIENT_SECRET_2}",
+        "access_token": "${YANDEX_ACCESS_TOKEN_2}",
+        "login": "marketing_user_2",
+        "goal_id": "987654321"
+      }
+    ]
+  }
+}
