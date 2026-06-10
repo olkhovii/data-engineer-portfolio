@@ -14,7 +14,7 @@
 | № | Название | Описание | Технологии | Статус |
 |---|----------|----------|------------|--------|
 | 01 | [1C Excel Pipeline](cases/01-1c-excel-pipeline/) | Загрузка заказов из Excel-выгрузок 1С в PostgreSQL | Airflow, Pandas, openpyxl | ✅ Готов |
-| 02 | Yandex Direct API | Асинхронная выгрузка статистики рекламных кампаний | Airflow, Yandex API | 📅 Планируется |
+| 02 | Yandex Direct API | Асинхронная выгрузка статистики рекламных кампаний | Airflow, Yandex API | ✅ Готов |
 | 03 | Google Sheets Connector | ETL из Google Sheets в DWH | Airflow, Google Sheets API | 📅 Планируется |
 
 ---
@@ -140,16 +140,48 @@ docker-compose restart scheduler webserver
 
 ---
 
+## 📊 Кейс 02: Yandex Direct API
+
+### Проблема
+
+Маркетинговой команде нужна ежедневная статистика по рекламным кампаниям из Яндекс.Директа. API работает асинхронно, требует обработки rate limits и поддерживает несколько аккаунтов.
+
+### Решение
+
+ETL-пайплайн на Apache Airflow с асинхронными отчётами:
+
+```
+Yandex Direct API → Airflow DAG → PostgreSQL (yd_campaigns_stats)
+```
+
+### Быстрый запуск кейса
+
+```bash
+# 1. Убедиться, что Docker запущен (выполнить в корне репозитория)
+docker-compose up -d
+
+# 2. Настроить конфиг (скопировать example и добавить токены)
+cp cases/02-yandex-direct-api/config/config.example.json cases/02-yandex-direct-api/config/config.json
+# Отредактировать config.json, добавив свои access_token и goal_id
+
+# 3. Запустить DAG
+docker exec -u airflow data-engineer-portfolio-scheduler-1 airflow dags trigger yandex_direct_daily_load
+
+# 4. Проверить результат
+docker exec data-engineer-portfolio-postgres-1 psql -U airflow -d airflow_db -c "SELECT * FROM yd_campaigns_stats LIMIT 10;"
+```
+
+### Особенности реализации
+
+- ✅ Асинхронные отчёты (статус 201 → ожидание → 200)
+- ✅ Автоматическая атрибуция (AUTO модель)
+- ✅ Rate limits (коды 52, 53) с retry-логикой
+- ✅ Поддержка нескольких аккаунтов
+- ✅ Идемпотентная загрузка (ON CONFLICT)
+
 ## 📞 Контакты
 
 - [GitHub](https://github.com/olkhovii)
-
----
-
-## 📝 Лицензия
-
-MIT
-
----
-
-*⭐ Если проект оказался полезным, поставьте звезду!*
+- [Дашборды и проекты](https://serdyukov.in/datalens)
+- [Telegram](https://t.me/olkhovii)
+- [Email](mailto:olkhovayae@ya.ru)
