@@ -14,7 +14,7 @@
 | № | Название | Описание | Технологии | Статус |
 |---|----------|----------|------------|--------|
 | 01 | [1C Excel Pipeline](cases/01-1c-excel-pipeline/) | Загрузка заказов из Excel-выгрузок 1С в PostgreSQL | Airflow, Pandas, openpyxl | ✅ Готов |
-| 02 | Yandex Direct API | Асинхронная выгрузка статистики рекламных кампаний | Airflow, Yandex API | ✅ Готов |
+| 02 | [Yandex Direct API](cases/02-yandex-direct-api/) | Выгрузка статистики рекламных кампаний из Яндекс.Директа | Airflow, Yandex API, async reports | ✅ Готов |
 | 03 | Google Sheets Connector | ETL из Google Sheets в DWH | Airflow, Google Sheets API | 📅 Планируется |
 
 ---
@@ -169,6 +169,26 @@ docker exec -u airflow data-engineer-portfolio-scheduler-1 airflow dags trigger 
 
 # 4. Проверить результат
 docker exec data-engineer-portfolio-postgres-1 psql -U airflow -d airflow_db -c "SELECT * FROM yd_campaigns_stats LIMIT 10;"
+```
+
+### Структура таблицы
+
+```sql
+CREATE TABLE yd_campaigns_stats (
+    id SERIAL PRIMARY KEY,
+    client_login VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
+    campaign_name VARCHAR(255),
+    campaign_id VARCHAR(100),
+    targeting_location_name VARCHAR(255),
+    impressions INTEGER DEFAULT 0,
+    clicks INTEGER DEFAULT 0,
+    cost DECIMAL(15,2) DEFAULT 0,
+    conversions INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW(),
+    load_date DATE DEFAULT CURRENT_DATE,
+    UNIQUE(client_login, date, campaign_id, targeting_location_name)
+);
 ```
 
 ### Особенности реализации
