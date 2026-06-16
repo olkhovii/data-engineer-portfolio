@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS raw_rentals (
+    id String,
+    date_posted Date,
+    district String,
+    okrug String,
+    lat Float64,
+    lon Float64,
+    total_area Float64,
+    rooms Int32,
+    floor Int32,
+    total_floors Int32,
+    building_year Int32,
+    building_type String,
+    renovation String,
+    furnished Bool,
+    pets_allowed Bool,
+    deposit_months Int32,
+    metro_station String,
+    metro_line String,
+    metro_distance_min Int32,
+    to_center_km Float64,
+    monthly_rent_rub Int32,
+    rent_per_sqm Int32
+) ENGINE = MergeTree()
+ORDER BY id

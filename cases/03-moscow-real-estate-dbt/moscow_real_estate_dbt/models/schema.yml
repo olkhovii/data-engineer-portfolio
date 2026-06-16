@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: stg_secondary_market
+    description: "Очищенные данные вторичного рынка"
+    columns:
+      - name: listing_id
+        tests:
+          - unique
+          - not_null
+      - name: price_rub
+        tests:
+          - not_null
+          - positive_values
+      - name: total_area
+        tests:
+          - not_null
+          - positive_values
+
+  - name: stg_new_builds
+    description: "Очищенные данные новостроек"
+    columns:
+      - name: listing_id
+        tests:
+          - unique
+          - not_null
+      - name: price_rub
+        tests:
+          - not_null
+          - positive_values
+
+  - name: stg_rentals
+    description: "Очищенные данные аренды"
+    columns:
+      - name: listing_id
+        tests:
+          - unique
+          - not_null
+      - name: monthly_rent_rub
+        tests:
+          - not_null
+          - positive_values
+
+  - name: int_listings_enriched
+    description: "Обогащённые объявления с метро, макроэкономикой и сегментами"
+    columns:
+      - name: listing_id
+        tests:
+          - unique
+          - not_null
+      - name: metro_accessibility
+        tests:
+          - accepted_values:
+              values: ['walk_<15min', 'walk_15-30min', 'walk_>30min', 'by_car', 'unknown']
+
+  - name: dashboard_district_trends
+    description: "Агрегированная витрина для дашборда по районам"
+    columns:
+      - name: district
+        tests:
+          - not_null
+      - name: avg_price_per_sqm
+        tests:
+          - positive_values
+
+  - name: ml_price_factors
+    description: "Факторы цены для ML-модели"
+    columns:
+      - name: listing_id
+        tests:
+          - unique
+          - not_null
+      - name: price_per_sqm
+        tests:
+          - positive_values

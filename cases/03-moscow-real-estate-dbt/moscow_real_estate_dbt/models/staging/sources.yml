@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: real_estate
+    schema: real_estate
+    tables:
+      - name: raw_secondary_market
+      - name: raw_new_builds
+      - name: raw_rentals
+      - name: raw_district_prices
+      - name: raw_metro_stations

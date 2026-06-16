@@ -1,0 +1,17 @@
+# Данные
+data/raw/*.csv
+data/raw/*.zip
+
+# ML-артефакты
+moscow_real_estate_dbt/ml_artifacts/*.joblib
+
+# dbt
+moscow_real_estate_dbt/target/
+moscow_real_estate_dbt/logs/
+moscow_real_estate_dbt/dbt_packages/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.py

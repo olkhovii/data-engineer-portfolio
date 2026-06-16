@@ -1,0 +1,26 @@
+select
+    id as listing_id,
+    date_posted,
+    district,
+    okrug,
+    lat,
+    lon,
+    total_area,
+    rooms,
+    floor,
+    total_floors,
+    building_year,
+    building_type,
+    renovation,
+    furnished,
+    pets_allowed,
+    deposit_months,
+    metro_station,
+    metro_line,
+    metro_distance_min,
+    to_center_km,
+    monthly_rent_rub,
+    rent_per_sqm,
+    now() as _loaded_at
+from {{ source('raw', 'raw_rentals') }}
+where monthly_rent_rub > 0 and total_area > 0

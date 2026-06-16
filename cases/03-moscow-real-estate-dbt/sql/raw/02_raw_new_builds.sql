@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS raw_new_builds (
+    id String,
+    date_posted Date,
+    complex_id String,
+    complex_name String,
+    developer String,
+    complex_class String,
+    district String,
+    okrug String,
+    lat Float64,
+    lon Float64,
+    total_area Float64,
+    rooms Int32,
+    floor Int32,
+    total_floors Int32,
+    completion_year Int32,
+    ready_status String,
+    metro_station String,
+    metro_line String,
+    metro_distance_min Int32,
+    to_center_km Float64,
+    price_rub Int64,
+    price_per_sqm Int32,
+    deal_type String,
+    subsidized_mortgage Bool,
+    mortgage_rate_at_listing Float64
+) ENGINE = MergeTree()
+ORDER BY id
