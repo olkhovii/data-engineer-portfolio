@@ -1,11 +1,22 @@
 # Data Engineer Portfolio
 
 [![Airflow](https://img.shields.io/badge/Airflow-2.10.3-blue)](https://airflow.apache.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue)](https://www.postgresql.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](https://www.postgresql.org/)
+[![ClickHouse](https://img.shields.io/badge/ClickHouse-24.3-yellow)](https://clickhouse.com/)
+[![dbt](https://img.shields.io/badge/dbt-1.8-orange)](https://www.getdbt.com/)
 [![Docker](https://img.shields.io/badge/Docker-24.0-blue)](https://www.docker.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-green)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5-orange)](https://scikit-learn.org/)
 
-Портфолио проектов по Data Engineering. Каждый кейс — самостоятельный ETL-пайплайн с полной документацией и возможностью локального запуска.
+Портфолио проектов по **Data Engineering**.  
+Каждый кейс — самостоятельный ETL/ELT-пайплайн с полной документацией, тестами и возможностью локального запуска через Docker.
+
+**Что внутри:**
+- Автоматизация выгрузок из 1С и API
+- Трансформация данных в ClickHouse через dbt
+- ML-модели для предсказания цен
+- Оркестрация через Apache Airflow
+- Воспроизводимые окружения в Docker
 
 ---
 
@@ -15,7 +26,8 @@
 |---|----------|----------|------------|--------|
 | 01 | [1C Excel Pipeline](cases/01-1c-excel-pipeline/) | Загрузка заказов из Excel-выгрузок 1С в PostgreSQL | Airflow, Pandas, openpyxl | ✅ Готов |
 | 02 | [Yandex Direct API](cases/02-yandex-direct-api/) | Выгрузка статистики рекламных кампаний из Яндекс.Директа | Airflow, Yandex API, async reports | ✅ Готов |
-| 03 | Google Sheets Connector | ETL из Google Sheets в DWH | Airflow, Google Sheets API | 📅 Планируется |
+ 03 | [Moscow Real Estate dbt](cases/03-moscow-real-estate-dbt/) | ELT-пайплайн + ML для недвижимости | ClickHouse, dbt, Docker, Python, scikit-learn | ✅ Готов |
+| 04 | Google Sheets Connector | ETL из Google Sheets в DWH | Airflow, Google Sheets API | 📅 Планируется |
 
 ---
 
@@ -198,6 +210,51 @@ CREATE TABLE yd_campaigns_stats (
 - ✅ Rate limits (коды 52, 53) с retry-логикой
 - ✅ Поддержка нескольких аккаунтов
 - ✅ Идемпотентная загрузка (ON CONFLICT)
+
+
+
+## 📊 : Moscow Real Estate dbt 
+> **Полная документация:** [README кейса](cases/03-moscow-real-estate-dbt/README.md)
+
+### Проблема
+
+Аналитикам рынка недвижимости нужна чистая, обогащённая витрина данных для мониторинга цен и ML-прогнозирования. Данные лежат в 5 разрозненных CSV-файлах с разными схемами.
+
+### Решение
+
+ELT-пайплайн на dbt + ClickHouse:
+
+```
+CSV → ClickHouse → dbt (Staging → Intermediate → Marts) → ML-модель
+```
+
+### Быстрый запуск
+
+```bash
+# Из корня портфолио
+docker-compose up -d clickhouse
+cd cases/03-moscow-real-estate-dbt
+python scripts/load_data.py
+cd moscow_real_estate_dbt
+dbt run
+dbt test
+```
+
+### Результаты
+Объём данных: 78 000 объявлений
+
+ML-модель: Random Forest, R² = 0.85
+
+Главный фактор цены: удалённость от центра (60.7% важности)
+
+### Особенности реализации
+
+- ✅ Многослойная архитектура (RAW → Staging → Intermediate → Marts)
+- ✅ 22 автоматических теста на качество данных
+- ✅ Автоматическая документация с линэйджем
+- ✅ ML-модель с сохранением артефактов
+
+
 
 ## 📞 Контакты
 
