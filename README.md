@@ -213,7 +213,8 @@ CREATE TABLE yd_campaigns_stats (
 
 
 
-## 📊 : Moscow Real Estate dbt 
+## 📊 Кейс 03: Moscow Real Estate dbt
+
 > **Полная документация:** [README кейса](cases/03-moscow-real-estate-dbt/README.md)
 
 ### Проблема
