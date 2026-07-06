@@ -79,7 +79,7 @@ pd.DataFrame(data).to_excel(
     f'/opt/airflow/dags/cases/01-1c-excel-pipeline/data/samples/Реализации_{yesterday}.xlsx',
     index=False
 )
-print('✅ Тестовый файл создан')
+print('Тестовый файл создан')
 "
 
 # 2. Запустить DAG
